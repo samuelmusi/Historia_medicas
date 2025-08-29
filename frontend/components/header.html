@@ -1,0 +1,30 @@
+<div class="header-left">
+    <button id="menu-toggle"><i class="fas fa-bars"></i></button>
+    <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Buscar paciente, cita...">
+    </div>
+</div>
+
+<div class="header-right">
+    <!-- Theme toggle -->
+    <button id="theme-toggle" title="Cambiar tema"><i class="fas fa-moon"></i></button>
+
+    <!-- Notifications -->
+    <div class="notification-wrapper">
+        <button id="notification-btn" title="Notificaciones">
+            <i class="fas fa-bell"></i>
+        </button>
+        <ul id="notification-dropdown" class="dropdown hidden">
+            <li><a href="citas.html?filter=hoy"><i class="fas fa-calendar-day"></i> Citas de hoy</a></li>
+            <li><a href="citas.html?filter=proximas"><i class="fas fa-clock"></i> Próximas citas</a></li>
+            <li><a href="#" id="logout-header" class="logout-link"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></li>
+        </ul>
+    </div>
+
+    <!-- Profile -->
+    <div class="profile-wrapper">
+        <img id="profilePic" src="img/background/default-avatar.png" alt="Foto" class="avatar">
+        <span id="miniUserName">-</span>
+    </div>
+</div>

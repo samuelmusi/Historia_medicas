@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - Sistema de Historias Médicas</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="css/register.css">
+</head>
+<body>
+    <div class="auth-wrapper">
+        <!-- Sección izquierda con ilustración -->
+        <div class="auth-visual">
+            <div class="visual-content">
+                <div class="medical-image">
+                    <img src="img/background/doc3.jpg" alt="Profesional médico" class="hero-image">
+                </div>
+                <div class="visual-text">
+                    <h2>Sistema de Historias Médicas</h2>
+                    <p>Plataforma moderna para la gestión integral de información médica y pacientes.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección derecha con formulario -->
+        <div class="auth-form-section">
+            <div class="auth-container">
+                <div class="auth-header">
+                    <div class="logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                    </div>
+                    <h1>Crear Cuenta</h1>
+                    <p>Completa tus datos para registrarte</p>
+                </div>
+
+                <!-- Mensajes de alerta -->
+                <div id="alert-message" class="alert"></div>
+
+                <form id="registerForm" autocomplete="off" enctype="multipart/form-data" class="auth-form">
+                    <input type="hidden" id="csrf_token" name="token_csrf" value="">
+                    
+                    <!-- Foto de perfil mejorada -->
+                    <div class="profile-photo-section">
+                        <div class="photo-upload-container">
+                            <div class="photo-preview" id="photo-preview">
+                                <img id="preview-img" src="https://via.placeholder.com/120x120/f0f0f0/cccccc?text=?" alt="Foto de perfil">
+                                <div class="photo-overlay">
+                                    <i class="fas fa-camera"></i>
+                                    <span>Cambiar foto</span>
+                                </div>
+                            </div>
+                            <input type="file" id="foto_perfil" name="foto_perfil" accept="image/*" aria-label="Foto de Perfil">
+                            <div class="photo-upload-text">
+                                <h4>Foto de Perfil</h4>
+                                <p>Opcional - Formatos: JPG, PNG, GIF (Máx: 5MB)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Campos del formulario en dos columnas -->
+                    <div class="form-grid">
+                        <div class="form-column">
+                            <div class="input-group">
+                                <div class="input-wrapper">
+                                    <i class="fas fa-user input-icon"></i>
+                                    <input 
+                                        id="nombre_completo" 
+                                        type="text" 
+                                        name="nombre_completo" 
+                                        required 
+                                        aria-label="Nombre Completo"
+                                        placeholder=" "
+                                    >
+                                    <label for="nombre_completo">Nombre Completo</label>
+                                    <span class="input-border"></span>
+                                </div>
+                                <div class="input-error" id="nombre-error"></div>
+                            </div>
+
+                            <div class="input-group">
+                                <div class="input-wrapper">
+                                    <i class="fas fa-envelope input-icon"></i>
+                                    <input 
+                                        id="correo" 
+                                        type="email" 
+                                        name="correo" 
+                                        required 
+                                        aria-label="Correo Electrónico"
+                                        placeholder=" "
+                                    >
+                                    <label for="correo">Correo Electrónico</label>
+                                    <span class="input-border"></span>
+                                </div>
+                                <div class="input-error" id="correo-error"></div>
+                            </div>
+
+                            <div class="input-group">
+                                <div class="input-wrapper">
+                                    <i class="fas fa-lock input-icon"></i>
+                                    <input 
+                                        id="contrasena" 
+                                        type="password" 
+                                        name="contrasena" 
+                                        required 
+                                        aria-label="Contraseña"
+                                        placeholder=" "
+                                    >
+                                    <label for="contrasena">Contraseña</label>
+                                    <button type="button" class="password-toggle" id="toggle-password">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <span class="input-border"></span>
+                                </div>
+                                <div class="password-strength">
+                                    <div class="strength-bar">
+                                        <div class="strength-fill" id="strength-fill"></div>
+                                    </div>
+                                    <span class="strength-text" id="strength-text">Muy débil</span>
+                                </div>
+                                <div class="input-error" id="contrasena-error"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-column">
+                            <div class="input-group">
+                                <div class="input-wrapper">
+                                    <i class="fas fa-lock input-icon"></i>
+                                    <input 
+                                        id="confirmar_contrasena" 
+                                        type="password" 
+                                        name="confirmar_contrasena" 
+                                        required 
+                                        aria-label="Confirmar Contraseña"
+                                        placeholder=" "
+                                    >
+                                    <label for="confirmar_contrasena">Confirmar Contraseña</label>
+                                    <button type="button" class="password-toggle" id="toggle-confirm-password">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <span class="input-border"></span>
+                                </div>
+                                <div class="input-error" id="confirmar-contrasena-error"></div>
+                            </div>
+
+                            <div class="input-group">
+                                <div class="select-wrapper">
+                                    <i class="fas fa-stethoscope input-icon"></i>
+                                    <select id="rol" name="rol" required aria-label="Rol">
+                                        <option value="" disabled selected></option>
+                                        <option value="medico">Médico</option>
+                                        <option value="enfermera">Enfermera</option>
+                                    </select>
+                                    <label for="rol">Rol Profesional</label>
+                                    <i class="fas fa-chevron-down select-arrow"></i>
+                                    <span class="input-border"></span>
+                                </div>
+                                <div class="input-error" id="rol-error"></div>
+                            </div>
+
+                            <!-- Espacio para mantener alineación -->
+                            <div class="input-group">
+                                <div class="registration-info">
+                                    <div class="info-item">
+                                        <i class="fas fa-shield-alt"></i>
+                                        <span>Tus datos están protegidos</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <i class="fas fa-clock"></i>
+                                        <span>Registro rápido en 2 minutos</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="auth-btn primary">
+                        <span class="btn-text">Crear Cuenta</span>
+                        <div class="btn-loading">
+                            <div class="spinner"></div>
+                        </div>
+                        <i class="fas fa-arrow-right btn-icon"></i>
+                    </button>
+                </form>
+
+                <div class="auth-footer">
+                    <p>¿Ya tienes una cuenta? <a href="login.html" class="auth-link">Inicia Sesión</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/register.js"></script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Sistema de Historias Médicas</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <div class="auth-wrapper">
+        <!-- Sección izquierda con ilustración -->
+        <div class="auth-visual">
+            <div class="visual-content">
+                <div class="medical-image">
+                    <img src="img/background/doc3.jpg" alt="Profesional médico" class="hero-image">
+                </div>
+                <div class="visual-text">
+                    <h2>Sistema de Historias Médicas</h2>
+                    <p>Plataforma moderna para la gestión integral de información médica y pacientes.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección derecha con formulario -->
+        <div class="auth-form-section">
+            <div class="auth-container">
+                <div class="auth-header">
+                    <div class="logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-sign-in-alt"></i>
+                        </div>
+                    </div>
+                    <h1>Iniciar Sesión</h1>
+                    <p>Accede a tu cuenta para gestionar las historias médicas</p>
+                </div>
+
+                <!-- Mensajes de alerta -->
+                <div id="alert-message" class="alert"></div>
+
+                <form id="loginForm" autocomplete="off" class="auth-form">
+                    <input type="hidden" id="csrf_token" name="token_csrf" value="">
+                    <div class="input-group">
+                        <div class="input-wrapper">
+                            <i class="fas fa-envelope input-icon"></i>
+                            <input 
+                                id="correo" 
+                                type="email" 
+                                name="correo" 
+                                required 
+                                aria-label="Correo Electrónico"
+                                placeholder=" "
+                            >
+                            <label for="correo">Correo Electrónico</label>
+                            <span class="input-border"></span>
+                        </div>
+                        <div class="input-error" id="correo-error"></div>
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock input-icon"></i>
+                            <input 
+                                id="contrasena" 
+                                type="password" 
+                                name="contrasena" 
+                                required 
+                                aria-label="Contraseña"
+                                placeholder=" "
+                            >
+                            <label for="contrasena">Contraseña</label>
+                            <button type="button" class="password-toggle" id="toggle-password">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <span class="input-border"></span>
+                        </div>
+                        <div class="input-error" id="contrasena-error"></div>
+                    </div>
+
+                    <button type="submit" class="auth-btn primary">
+                        <span class="btn-text">Iniciar Sesión</span>
+                        <div class="btn-loading">
+                            <div class="spinner"></div>
+                        </div>
+                        <i class="fas fa-arrow-right btn-icon"></i>
+                    </button>
+                </form>
+
+                <div class="auth-footer">
+                    <p>¿No tienes una cuenta? <a href="register.html" class="auth-link">Regístrate aquí</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle de contraseñas
+            const togglePassword = document.getElementById('toggle-password');
+            const passwordInput = document.getElementById('contrasena');
+            
+            if (togglePassword && passwordInput) {
+                togglePassword.addEventListener('click', function() {
+                    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                    passwordInput.setAttribute('type', type);
+                    
+                    const icon = this.querySelector('i');
+                    icon.classList.toggle('fa-eye');
+                    icon.classList.toggle('fa-eye-slash');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

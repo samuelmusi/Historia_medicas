@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Historias Médicas</title>
+    <!-- Estilos principales -->
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <!-- Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<!-- Clase "light" por defecto; se cambiará con JS -->
+<body class="light">
+    <!-- Contenedor principal -->
+    <div class="layout">
+        <!-- Sidebar (se carga dinámicamente) -->
+        <aside id="sidebar" class="sidebar"></aside>
+
+        <!-- Contenido principal -->
+        <div class="main">
+            <!-- Header (se carga dinámicamente) -->
+            <header id="header" class="header"></header>
+
+            <!-- Contenido del dashboard -->
+            <main class="dashboard-main">
+                <!-- Mensaje de bienvenida -->
+                <section class="welcome">
+                    <h2 id="welcomeText">Bienvenido, <span id="userName">-</span></h2>
+                    <p id="currentDateTime">Cargando fecha y hora...</p>
+                </section>
+
+                <!-- Tarjetas de estadísticas -->
+                <section class="stats-grid">
+                    <div class="stat-card">
+                        <i class="fas fa-users"></i>
+                        <div>
+                            <h3 id="totalPacientes">0</h3>
+                            <p>Pacientes</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-calendar-check"></i>
+                        <div>
+                            <h3 id="totalCitas">0</h3>
+                            <p>Citas</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-file-medical"></i>
+                        <div>
+                            <h3 id="totalHistorias">0</h3>
+                            <p>Historias</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-user-md"></i>
+                        <div>
+                            <h3 id="totalMedicos">0</h3>
+                            <p>Médicos</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Gráficos vacíos (se llenarán luego) -->
+                <section class="charts-grid">
+                    <div class="chart-container">
+                        <h4>Estadísticas Mensuales</h4>
+                        <canvas id="monthlyChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h4>Distribución por Género</h4>
+                        <canvas id="genderChart"></canvas>
+                    </div>
+                </section>
+            </main>
+
+            <!-- Footer (se carga dinámicamente) -->
+            <footer id="footer"></footer>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/chart.js"></script>
+</body>
+</html>

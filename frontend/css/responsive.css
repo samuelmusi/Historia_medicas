@@ -1,0 +1,9 @@
+@media(max-width:992px){
+  .chart-section{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  .search-box input{width:180px}
+}
+@media(max-width:576px){
+  .header-right .search-box{display:none}
+}
