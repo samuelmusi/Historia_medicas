@@ -18,7 +18,7 @@ try {
     echo json_encode([
         'success' => true,
         'message' => 'Sesión cerrada correctamente',
-        'redirect' => '../../frontend/login.html?mensaje=sesion_cerrada'
+        'redirect' => '/Historia_medicas/frontend/login.html?mensaje=sesion_cerrada'
     ]);
     
 } catch (Exception $e) {

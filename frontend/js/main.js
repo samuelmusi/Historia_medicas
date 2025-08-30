@@ -1,3 +1,6 @@
+/* ===== CONFIGURACIÓN GLOBAL ===== */
+const BASE_PATH = '/Historia_medicas/';
+
 /* ===== CARGA DINÁMICA DE COMPONENTES ===== */
 document.addEventListener('DOMContentLoaded', () => {
     // Si estamos en dashboard.html, evitar volver al login con el botón atrás
@@ -62,6 +65,23 @@ function headerPostLoad() {
             cerrarSesion();
         });
     }
+    
+    const themeBtn = document.getElementById('theme-toggle');
+    const notifBtn = document.getElementById('notification-btn');
+    const dropdown = document.getElementById('notification-dropdown');
+
+    // Cambiar tema
+    themeBtn?.addEventListener('click', toggleTheme);
+
+    // Mostrar/ocultar notificaciones
+    notifBtn?.addEventListener('click', () => dropdown.classList.toggle('hidden'));
+
+    // Cerrar dropdown si se hace clic fuera
+    document.addEventListener('click', e => {
+        if (!e.target.closest('.notification-wrapper')) dropdown?.classList.add('hidden');
+    });
+}
+
 // Función para cerrar sesión
 function cerrarSesion() {
     // Mostrar confirmación al usuario
@@ -69,12 +89,17 @@ function cerrarSesion() {
         return;
     }
     
+    const basePath = BASE_PATH;
+    
     // Detectar ruta relativa para fetch correcto
     let logoutUrl = '';
-    if (window.location.pathname.includes('/frontend/')) {
-        logoutUrl = '../backend/auth/logout.php';
+    let redirectUrl = '';
+    if (window.location.pathname.includes(basePath + 'frontend/')) {
+        logoutUrl = basePath + 'backend/auth/logout.php';
+        redirectUrl = basePath + 'frontend/login.html';
     } else {
-        logoutUrl = 'backend/auth/logout.php';
+        logoutUrl = basePath + 'backend/auth/logout.php';
+        redirectUrl = basePath + 'frontend/login.html';
     }
     
     fetch(logoutUrl, { 
@@ -92,7 +117,7 @@ function cerrarSesion() {
     .then(data => {
         if (data.success) {
             // Redirigir al login después de cerrar sesión exitosamente
-            window.location.href = data.redirect || 'login.html';
+            window.location.href = data.redirect || redirectUrl;
         } else {
             alert('Error al cerrar sesión: ' + (data.error || 'Error desconocido'));
         }
@@ -100,22 +125,7 @@ function cerrarSesion() {
     .catch(error => {
         console.error('Error al cerrar sesión:', error);
         // Si hay error de red, intentar redirigir directamente al logout simple
-        window.location.href = '../backend/logout.php';
-    });
-}
-    const themeBtn = document.getElementById('theme-toggle');
-    const notifBtn = document.getElementById('notification-btn');
-    const dropdown = document.getElementById('notification-dropdown');
-
-    // Cambiar tema
-    themeBtn?.addEventListener('click', toggleTheme);
-
-    // Mostrar/ocultar notificaciones
-    notifBtn?.addEventListener('click', () => dropdown.classList.toggle('hidden'));
-
-    // Cerrar dropdown si se hace clic fuera
-    document.addEventListener('click', e => {
-        if (!e.target.closest('.notification-wrapper')) dropdown?.classList.add('hidden');
+        window.location.href = basePath + 'backend/logout.php';
     });
 }
 
@@ -134,9 +144,6 @@ function toggleTheme() {
 (function restoreTheme() {
     if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
 })();
-
-
-
 
 
 

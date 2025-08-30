@@ -104,8 +104,8 @@ class SessionManager {
         }
         
         return isset($_SESSION[SESSION_USER_ID]) && 
-               isset($_SESSION[SESSION_USER_EMAIL]) &&
-               self::verificarExpiracionSesion();
+                isset($_SESSION[SESSION_USER_EMAIL]) &&
+                self::verificarExpiracionSesion();
     }
     
     /**

@@ -7,6 +7,6 @@ require_once 'classes/SessionManager.php';
 SessionManager::cerrarSesion();
 
 // Redirigir al login con mensaje de éxito
-header('Location: ../frontend/login.html?mensaje=sesion_cerrada');
+header('Location: /Historia_medicas/frontend/login.html?mensaje=sesion_cerrada');
 exit();
 ?>
