@@ -64,6 +64,11 @@ function headerPostLoad() {
     }
 // Función para cerrar sesión
 function cerrarSesion() {
+    // Mostrar confirmación al usuario
+    if (!confirm('¿Está seguro que desea cerrar sesión?')) {
+        return;
+    }
+    
     // Detectar ruta relativa para fetch correcto
     let logoutUrl = '';
     if (window.location.pathname.includes('/frontend/')) {
@@ -71,20 +76,32 @@ function cerrarSesion() {
     } else {
         logoutUrl = 'backend/auth/logout.php';
     }
-    fetch(logoutUrl, { method: 'POST' })
-        .then(res => res.json())
-        .then(data => {
-            if (data.success) {
-                // Limpiar historial para no poder volver atrás
-                window.location.href = 'login.html';
-                setTimeout(() => {
-                    window.location.replace('login.html');
-                }, 100);
-            } else {
-                alert('Error al cerrar sesión.');
-            }
-        })
-        .catch(() => alert('Error de red al cerrar sesión.'));
+    
+    fetch(logoutUrl, { 
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(res => {
+        if (!res.ok) {
+            throw new Error('Error en la respuesta del servidor');
+        }
+        return res.json();
+    })
+    .then(data => {
+        if (data.success) {
+            // Redirigir al login después de cerrar sesión exitosamente
+            window.location.href = data.redirect || 'login.html';
+        } else {
+            alert('Error al cerrar sesión: ' + (data.error || 'Error desconocido'));
+        }
+    })
+    .catch(error => {
+        console.error('Error al cerrar sesión:', error);
+        // Si hay error de red, intentar redirigir directamente al logout simple
+        window.location.href = '../backend/logout.php';
+    });
 }
     const themeBtn = document.getElementById('theme-toggle');
     const notifBtn = document.getElementById('notification-btn');
