@@ -15,7 +15,6 @@ async function cargarDatosUsuario() {
 
             // Nombre completo
             document.getElementById('userName').textContent = nombre_completo;
-            document.getElementById('miniUserName').textContent = nombre_completo.split(' ')[0];
 
             // Foto de perfil
             const pic = foto_perfil

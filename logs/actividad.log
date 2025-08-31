@@ -188,3 +188,15 @@
 [2025-08-29 11:44:59] [LOGIN_EXITOSO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Usuario: Samuel@gmail.com
 [2025-08-29 13:23:04] [LOGIN_EXITOSO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Usuario: Samuel@gmail.com
 [2025-08-29 20:11:28] [LOGIN_EXITOSO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Usuario: Samuel@gmail.com
+[2025-08-29 23:39:01] [LOGIN_EXITOSO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Usuario: Samuel@gmail.com
+[2025-08-29 23:39:41] [LOGIN_FALLIDO] [IP: ::1] [Usuario: Anónimo] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Correo: Ema@gmail.com
+[2025-08-29 23:40:14] [LOGIN_EXITOSO] [IP: ::1] [Usuario: 3] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Usuario: isaac@gmail.com
+[2025-08-31 11:56:36] [LOGIN_EXITOSO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Usuario: Samuel@gmail.com
+[2025-08-31 11:57:22] [LOGIN_EXITOSO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Usuario: Samuel@gmail.com
+[2025-08-31 12:24:22] [LOGIN_FALLIDO] [IP: ::1] [Usuario: Anónimo] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Correo: Samuel@gmail.com
+[2025-08-31 12:24:31] [LOGIN_EXITOSO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Usuario: Samuel@gmail.com
+[2025-08-31 12:30:48] [LOGIN_EXITOSO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Usuario: Samuel@gmail.com
+[2025-08-31 16:49:49] [LOGIN_EXITOSO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Usuario: Samuel@gmail.com
+[2025-08-31 16:51:58] [LOGIN_EXITOSO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Usuario: Samuel@gmail.com
+[2025-08-31 16:57:15] [LOGIN_EXITOSO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Usuario: Samuel@gmail.com
+[2025-08-31 17:04:05] [LOGIN_EXITOSO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Usuario: Samuel@gmail.com
