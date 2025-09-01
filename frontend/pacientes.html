@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Pacientes - Historias Médicas</title>
+    
+    <!-- Estilos -->
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/pacientes.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body class="light">
+    <div class="layout">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar"></aside>
+
+        <!-- Contenido principal -->
+        <div class="main">
+            <!-- Header -->
+            <header id="header" class="header"></header>
+
+            <!-- Contenido pacientes -->
+            <main class="dashboard-main">
+                <!-- Encabezado con título y botón -->
+                <section class="page-header">
+                    <div class="header-content">
+                        <div>
+                            <h2><i class="fas fa-users"></i> Gestión de Pacientes</h2>
+                            <p class="page-description">Administra y registra la información completa de tus pacientes</p>
+                        </div>
+                        <button class="btn-primary" id="btnNuevoPaciente">
+                            <i class="fas fa-plus"></i>
+                            <span>Registrar Nuevo Paciente</span>
+                        </button>
+                    </div>
+
+                    <!-- Barra de búsqueda y filtros -->
+                    <div class="search-filter-bar">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="searchInput" placeholder="Buscar por nombre, apellido o DNI...">
+                        </div>
+                        <div class="filter-options">
+                            <select id="filterGenero">
+                                <option value="">Todos los géneros</option>
+                                <option value="M">Masculino</option>
+                                <option value="F">Femenino</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Contador de pacientes -->
+                <div class="stats-card">
+                    <i class="fas fa-user-injured"></i>
+                    <div>
+                        <h3 id="totalPacientes">0</h3>
+                        <p>Pacientes Activos</p>
+                    </div>
+                </div>
+
+                <!-- Grid de pacientes -->
+                <section class="pacientes-grid" id="pacientesGrid">
+                    <!-- Los pacientes se cargarán dinámicamente aquí -->
+                </section>
+
+                <!-- Paginación -->
+                <div class="pagination" id="pagination">
+                    <!-- Paginación dinámica -->
+                </div>
+            </main>
+
+            <!-- Footer -->
+            <footer id="footer"></footer>
+        </div>
+    </div>
+
+    <!-- Modal de registro/edición -->
+    <div class="modal" id="modalPaciente">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Registrar Nuevo Paciente</h3>
+                <button class="close-btn" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="formPaciente" enctype="multipart/form-data">
+                <input type="hidden" id="pacienteId" name="id">
+                
+                <div class="form-grid">
+                    <!-- Información personal -->
+                    <div class="form-section">
+                        <h4><i class="fas fa-user"></i> Información Personal</h4>
+                        
+                        <div class="form-group">
+                            <label for="dni">DNI *</label>
+                            <input type="text" id="dni" name="dni" required pattern="[0-9]{7,10}">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nombre">Nombre *</label>
+                                <input type="text" id="nombre" name="nombre" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="apellidos">Apellidos *</label>
+                                <input type="text" id="apellidos" name="apellidos" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="fecha_nacimiento">Fecha de Nacimiento *</label>
+                                <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="genero">Género *</label>
+                                <select id="genero" name="genero" required>
+                                    <option value="">Seleccione</option>
+                                    <option value="M">Masculino</option>
+                                    <option value="F">Femenino</option>
+                                    <option value="Otro">Otro</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="telefono">Teléfono</label>
+                                <input type="tel" id="telefono" name="telefono">
+                            </div>
+                            <div class="form-group">
+                                <label for="seguro_medico">Seguro Médico</label>
+                                <input type="text" id="seguro_medico" name="seguro_medico">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Foto y dirección -->
+                    <div class="form-section">
+                        <h4><i class="fas fa-image"></i> Foto y Dirección</h4>
+                        
+                        <div class="photo-upload">
+                            <label>Foto de Perfil</label>
+                            <div class="photo-preview-container">
+                                <img id="previewFoto" src="https://via.placeholder.com/150x150?text=?" alt="Preview">
+                                <input type="file" id="foto_paciente" name="foto_paciente" accept="image/*">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="direccion">Dirección</label>
+                            <textarea id="direccion" name="direccion" rows="3"></textarea>
+                        </div>
+                    </div>
+                    
+                    <!-- Información médica -->
+                    <div class="form-section">
+                        <h4><i class="fas fa-heartbeat"></i> Información Médica</h4>
+                        
+                        <div class="form-group">
+                            <label for="alergias">Alergias</label>
+                            <textarea id="alergias" name="alergias" rows="3" 
+                                    placeholder="Listar alergias separadas por comas"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="medicamentos_actuales">Medicamentos Actuales</label>
+                            <textarea id="medicamentos_actuales" name="medicamentos_actuales" rows="3"
+                                    placeholder="Listar medicamentos actuales"></textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" id="btnCancelar">Cancelar</button>
+                    <button type="submit" class="btn-primary" id="btnGuardar">
+                        <i class="fas fa-save"></i>
+                        <span>Guardar Paciente</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/main.js"></script>
+    <script src="js/pacientes.js"></script>
+</body>
+</html>

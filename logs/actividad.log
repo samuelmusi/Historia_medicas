@@ -200,3 +200,14 @@
 [2025-08-31 16:51:58] [LOGIN_EXITOSO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Usuario: Samuel@gmail.com
 [2025-08-31 16:57:15] [LOGIN_EXITOSO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Usuario: Samuel@gmail.com
 [2025-08-31 17:04:05] [LOGIN_EXITOSO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Usuario: Samuel@gmail.com
+[2025-08-31 19:26:36] [LOGIN_EXITOSO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Usuario: Samuel@gmail.com
+[2025-08-31 19:28:55] [LOGIN_EXITOSO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Usuario: Samuel@gmail.com
+[2025-08-31 19:37:50] [LOGIN_EXITOSO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Usuario: Samuel@gmail.com
+[2025-08-31 20:11:53] [LOGIN_EXITOSO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Usuario: Samuel@gmail.com
+[2025-08-31 20:12:27] [LOGIN_EXITOSO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Usuario: Samuel@gmail.com
+[2025-08-31 20:33:58] [LOGIN_EXITOSO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Usuario: Samuel@gmail.com
+[2025-08-31 21:20:33] [LOGIN_EXITOSO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Usuario: Samuel@gmail.com
+[2025-08-31 21:46:03] [LOGIN_EXITOSO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Usuario: Samuel@gmail.com
+[2025-08-31 22:48:05] [PACIENTE_REGISTRADO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Paciente: samuel isaac carias aular - DNI: 30294296
+[2025-08-31 22:48:42] [PACIENTE_REGISTRADO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Paciente: samuel isaac carias aular - DNI: 30294298
+[2025-08-31 22:49:46] [PACIENTE_ELIMINADO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Paciente: samuel isaac carias aular - ID: 1
