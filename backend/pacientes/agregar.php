@@ -38,15 +38,16 @@ try {
         throw new Exception('Los campos obligatorios no pueden estar vacíos');
     }
 
+    // Validar formato de cédula venezolana (7-10 dígitos)
     if (!preg_match('/^[0-9]{7,10}$/', $dni)) {
-        throw new Exception('El DNI debe contener entre 7 y 10 dígitos numéricos');
+        throw new Exception('La cédula debe contener entre 7 y 10 dígitos numéricos');
     }
 
-    // Verificar DNI único
+    // Verificar cédula única
     $stmt = $pdo->prepare("SELECT id FROM pacientes WHERE dni = ?");
     $stmt->execute([$dni]);
     if ($stmt->fetch()) {
-        throw new Exception('El DNI ya está registrado');
+        throw new Exception('Esta cédula ya está registrada');
     }
 
     // Manejar foto de perfil

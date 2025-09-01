@@ -3,6 +3,7 @@
 header('Content-Type: application/json; charset=utf-8');
 require_once '../conexion.php';
 require_once '../classes/SessionManager.php';
+require_once '../config/constantes.php';
 
 if (!SessionManager::estaAutenticado()) {
     http_response_code(401);

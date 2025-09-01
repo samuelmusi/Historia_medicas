@@ -1,6 +1,6 @@
 <?php
 // backend/pacientes/editar.php
-header('Content-Type: application/json; charset=utf-8');
+header ('Content-Type: application/json; charset=utf-8');
 require_once '../conexion.php';
 require_once '../classes/SessionManager.php';
 require_once '../classes/Seguridad.php';
@@ -43,30 +43,31 @@ try {
     $seguro_medico = Seguridad::validarInput($_POST['seguro_medico'] ?? '');
 
     // Validaciones
-    if (empty($dni) || empty($nombre) || empty($apellidos)) {
+    if (empty($dni) || empty($nombre) || empty($apellidos) || empty($fecha_nacimiento) || empty($genero)) {
         throw new Exception('Los campos obligatorios no pueden estar vacíos');
     }
 
-    // Verificar DNI único (excepto el actual)
+    // Validar formato de cédula venezolana (7-10 dígitos)
+    if (!preg_match('/^[0-9]{7,10}$/', $dni)) {
+        throw new Exception('La cédula debe contener entre 7 y 10 dígitos numéricos');
+    }
+
+    // Verificar cédula única (excepto el actual)
     $stmt = $pdo->prepare("SELECT id FROM pacientes WHERE dni = ? AND id != ?");
     $stmt->execute([$dni, $id]);
     if ($stmt->fetch()) {
-        throw new Exception('El DNI ya está registrado en otro paciente');
+        throw new Exception('Esta cédula ya está registrada en otro paciente');
     }
 
-    // Manejar foto de perfil
+    // Manejar foto de perfil - Solo actualizar si se sube una nueva
     $foto_paciente = null;
     if (isset($_FILES['foto_paciente']) && $_FILES['foto_paciente']['error'] === UPLOAD_ERR_OK) {
-        // Eliminar foto anterior si existe
+        // Obtener foto anterior para mantener referencia
         $stmt = $pdo->prepare("SELECT foto_paciente FROM pacientes WHERE id = ?");
         $stmt->execute([$id]);
         $oldPhoto = $stmt->fetch()['foto_paciente'];
-        
-        if ($oldPhoto && file_exists(__DIR__ . '/../' . $oldPhoto)) {
-            unlink(__DIR__ . '/../' . $oldPhoto);
-        }
 
-        // Subir nueva foto
+        // Subir nueva foto (reutilizar carpeta existente)
         $uploadDir = __DIR__ . '/../uploads/pacientes/';
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0755, true);
@@ -74,11 +75,25 @@ try {
 
         $fileInfo = pathinfo($_FILES['foto_paciente']['name']);
         $extension = strtolower($fileInfo['extension']);
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+
+        if (!in_array($extension, $allowedExtensions)) {
+            throw new Exception('Formato de imagen no permitido. Use JPG, PNG, GIF o WebP');
+        }
+
+        // Generar nuevo nombre de archivo manteniendo la carpeta
         $filename = 'paciente_' . date('Ymd_His') . '_' . uniqid() . '.' . $extension;
         $uploadPath = $uploadDir . $filename;
 
         if (move_uploaded_file($_FILES['foto_paciente']['tmp_name'], $uploadPath)) {
             $foto_paciente = 'uploads/pacientes/' . $filename;
+
+            // Eliminar foto anterior solo después de subir la nueva exitosamente
+            if ($oldPhoto && file_exists(__DIR__ . '/../' . $oldPhoto)) {
+                unlink(__DIR__ . '/../' . $oldPhoto);
+            }
+        } else {
+            throw new Exception('Error al subir la nueva foto');
         }
     }
 

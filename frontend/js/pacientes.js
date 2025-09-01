@@ -105,10 +105,10 @@ class PacientesManager {
                 <div class="card-header">
                     <div class="paciente-info">
                         <img src="${paciente.foto_paciente ? `../backend/${paciente.foto_paciente}` : 'https://via.placeholder.com/60x60?text=?'}" 
-                             alt="${paciente.nombre}" class="paciente-foto">
+                            alt="${paciente.nombre}" class="paciente-foto">
                         <div class="paciente-datos">
                             <h4>${paciente.nombre} ${paciente.apellidos}</h4>
-                            <p>DNI: ${paciente.dni}</p>
+                            <p>Cédula: ${paciente.dni}</p>
                         </div>
                     </div>
                 </div>

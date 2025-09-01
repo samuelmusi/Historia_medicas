@@ -1,7 +1,8 @@
 <?php
 // backend/pacientes/generar_pdf.php
-require_once '../config/config.php';
+require_once '../conexion.php';
 require_once '../classes/SessionManager.php';
+require_once '../config/constantes.php';
 require_once '../../vendor/autoload.php'; // Para dompdf
 
 use Dompdf\Dompdf;

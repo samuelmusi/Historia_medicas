@@ -211,3 +211,7 @@
 [2025-08-31 22:48:05] [PACIENTE_REGISTRADO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Paciente: samuel isaac carias aular - DNI: 30294296
 [2025-08-31 22:48:42] [PACIENTE_REGISTRADO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Paciente: samuel isaac carias aular - DNI: 30294298
 [2025-08-31 22:49:46] [PACIENTE_ELIMINADO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Paciente: samuel isaac carias aular - ID: 1
+[2025-09-01 16:22:26] [LOGIN_EXITOSO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Usuario: Samuel@gmail.com
+[2025-09-01 16:23:01] [PACIENTE_ELIMINADO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Paciente: samuel isaac carias aular - ID: 2
+[2025-09-01 16:25:44] [PACIENTE_REGISTRADO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Paciente: samuel carias - DNI: 30294292
+[2025-09-01 16:44:53] [PACIENTE_ACTUALIZADO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Paciente: samuel aular - ID: 3
