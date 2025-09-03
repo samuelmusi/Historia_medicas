@@ -65,7 +65,7 @@ function headerPostLoad() {
             cerrarSesion();
         });
     }
-    
+
     const themeBtn = document.getElementById('theme-toggle');
     const notifBtn = document.getElementById('notification-btn');
     const dropdown = document.getElementById('notification-dropdown');
@@ -80,6 +80,49 @@ function headerPostLoad() {
     document.addEventListener('click', e => {
         if (!e.target.closest('.notification-wrapper')) dropdown?.classList.add('hidden');
     });
+
+    // Cargar datos del usuario (foto de perfil y nombre) en el header
+    cargarDatosUsuarioHeader();
+}
+
+/* ===== CARGAR DATOS DEL USUARIO EN HEADER ===== */
+async function cargarDatosUsuarioHeader() {
+    try {
+        const res = await fetch('../backend/auth/get_user_session.php');
+        const data = await res.json();
+
+        if (data.success) {
+            const { nombre_completo, foto_perfil } = data.user;
+
+            // Actualizar foto de perfil en el header
+            const profilePic = document.getElementById('profilePic');
+            if (profilePic) {
+                const picSrc = foto_perfil
+                    ? `../backend/uploads/perfiles/${foto_perfil}`
+                    : 'img/background/default-avatar.png';
+                profilePic.src = picSrc;
+                profilePic.alt = nombre_completo || 'Usuario';
+            }
+
+            // Si hay un elemento para mostrar el nombre en el header, actualizarlo
+            const userNameElement = document.getElementById('userNameHeader');
+            if (userNameElement) {
+                userNameElement.textContent = nombre_completo;
+            }
+
+        } else {
+            // Si no hay sesión, redirigir al login
+            console.warn('No hay sesión activa, redirigiendo al login...');
+            window.location.replace('login.html');
+        }
+    } catch (err) {
+        console.error('Error al cargar datos del usuario en header:', err);
+        // En caso de error, usar imagen por defecto
+        const profilePic = document.getElementById('profilePic');
+        if (profilePic) {
+            profilePic.src = 'img/background/default-avatar.png';
+        }
+    }
 }
 
 // Función para cerrar sesión
