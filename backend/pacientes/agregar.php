@@ -61,7 +61,7 @@ try {
         $fileInfo = pathinfo($_FILES['foto_paciente']['name']);
         $extension = strtolower($fileInfo['extension']);
         $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
-        
+
         if (!in_array($extension, $allowedExtensions)) {
             throw new Exception('Formato de imagen no permitido');
         }
@@ -72,6 +72,19 @@ try {
         if (move_uploaded_file($_FILES['foto_paciente']['tmp_name'], $uploadPath)) {
             $foto_paciente = 'uploads/pacientes/' . $filename;
         }
+    } else {
+        // Si NO se subió foto, asignar avatar por defecto según género
+        // Modificación: aquí se asigna avatar_hombre.jpg o avatar_mujer.jpg automáticamente
+        if ($genero === 'M') {
+            $foto_paciente = 'uploads/pacientes/avatar_hombre.jpg';
+        } elseif ($genero === 'F') {
+            $foto_paciente = 'uploads/pacientes/avatar_mujer.jpg';
+        } elseif ($genero === 'O' || $genero === 'Otro') {
+            $foto_paciente = 'uploads/pacientes/avatar_otro.png';
+        } else {
+            $foto_paciente = 'uploads/pacientes/avatar_hombre.jpg'; // Por defecto, masculino si no se especifica
+        }
+        // Fin modificación
     }
 
     // Insertar paciente

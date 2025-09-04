@@ -74,7 +74,13 @@ try {
                 </div>
                 <div class="info-item">
                     <div class="label">Género:</div>
-                    <div class="value">' . htmlspecialchars($paciente['genero']) . '</div>
+                    <div class="value">' . htmlspecialchars(
+                        $paciente['genero'] === 'M' ? 'Masculino' :
+                        ($paciente['genero'] === 'F' ? 'Femenino' :
+                        (($paciente['genero'] === 'O' || $paciente['genero'] === 'Otro' ||
+                          (is_string($paciente['genero']) && strtolower($paciente['genero']) === 'otro') ||
+                          !$paciente['genero'] || $paciente['genero'] === '') ? 'Otro' : $paciente['genero']))
+                    ) . '</div>
                 </div>
                 <div class="info-item">
                     <div class="label">Teléfono:</div>

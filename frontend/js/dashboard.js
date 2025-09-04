@@ -27,7 +27,7 @@ async function cargarDatosUsuario() {
             // Foto de perfil
             const pic = foto_perfil
                 ? `/Historia_medicas/backend/uploads/perfiles/${foto_perfil}`
-                : 'img/background/default-avatar.png';
+                : '/Historia_medicas/backend/uploads/pacientes/avatar_hombre.jpg';
             document.getElementById('profilePic').src = pic;
 
             // Actualizar contador de pacientes después de cargar usuario

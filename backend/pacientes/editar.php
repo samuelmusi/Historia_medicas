@@ -59,15 +59,16 @@ try {
         throw new Exception('Esta cédula ya está registrada en otro paciente');
     }
 
-    // Manejar foto de perfil - Solo actualizar si se sube una nueva
+    // Manejar foto de perfil
     $foto_paciente = null;
-    if (isset($_FILES['foto_paciente']) && $_FILES['foto_paciente']['error'] === UPLOAD_ERR_OK) {
-        // Obtener foto anterior para mantener referencia
-        $stmt = $pdo->prepare("SELECT foto_paciente FROM pacientes WHERE id = ?");
-        $stmt->execute([$id]);
-        $oldPhoto = $stmt->fetch()['foto_paciente'];
 
-        // Subir nueva foto (reutilizar carpeta existente)
+    // Obtener datos actuales del paciente para comparar
+    $stmt = $pdo->prepare("SELECT foto_paciente, genero FROM pacientes WHERE id = ?");
+    $stmt->execute([$id]);
+    $pacienteActual = $stmt->fetch();
+
+    if (isset($_FILES['foto_paciente']) && $_FILES['foto_paciente']['error'] === UPLOAD_ERR_OK) {
+        // Se subió una nueva foto personalizada
         $uploadDir = __DIR__ . '/../uploads/pacientes/';
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0755, true);
@@ -81,20 +82,41 @@ try {
             throw new Exception('Formato de imagen no permitido. Use JPG, PNG, GIF o WebP');
         }
 
-        // Generar nuevo nombre de archivo manteniendo la carpeta
         $filename = 'paciente_' . date('Ymd_His') . '_' . uniqid() . '.' . $extension;
         $uploadPath = $uploadDir . $filename;
 
         if (move_uploaded_file($_FILES['foto_paciente']['tmp_name'], $uploadPath)) {
             $foto_paciente = 'uploads/pacientes/' . $filename;
 
-            // Eliminar foto anterior solo después de subir la nueva exitosamente
-            if ($oldPhoto && file_exists(__DIR__ . '/../' . $oldPhoto)) {
-                unlink(__DIR__ . '/../' . $oldPhoto);
+            // Eliminar foto anterior solo si no era una imagen por defecto
+            if ($pacienteActual['foto_paciente'] &&
+                file_exists(__DIR__ . '/../' . $pacienteActual['foto_paciente']) &&
+                !preg_match('/avatar_(hombre|mujer|otro)/', $pacienteActual['foto_paciente'])) {
+                unlink(__DIR__ . '/../' . $pacienteActual['foto_paciente']);
             }
         } else {
             throw new Exception('Error al subir la nueva foto');
         }
+    } else {
+        // No se subió nueva foto, verificar si hay cambio de género
+        $generoActual = $pacienteActual['genero'];
+        $nuevoGenero = $genero;
+
+        // Si cambió el género y la foto actual es un avatar por defecto, actualizar al nuevo avatar
+        if ($generoActual !== $nuevoGenero &&
+            preg_match('/avatar_(hombre|mujer|otro)/', $pacienteActual['foto_paciente'])) {
+
+            if ($nuevoGenero === 'M') {
+                $foto_paciente = 'uploads/pacientes/avatar_hombre.jpg';
+            } elseif ($nuevoGenero === 'F') {
+                $foto_paciente = 'uploads/pacientes/avatar_mujer.jpg';
+            } elseif ($nuevoGenero === 'O' || $nuevoGenero === 'Otro') {
+                $foto_paciente = 'uploads/pacientes/avatar_otro.png';
+            } else {
+                $foto_paciente = 'uploads/pacientes/avatar_hombre.jpg';
+            }
+        }
+        // Si no cambió el género o tiene foto personalizada, mantener la foto actual
     }
 
     // Actualizar paciente

@@ -99,7 +99,7 @@ async function cargarDatosUsuarioHeader() {
             if (profilePic) {
                 const picSrc = foto_perfil
                     ? `../backend/uploads/perfiles/${foto_perfil}`
-                    : 'img/background/default-avatar.png';
+                    : '../backend/uploads/pacientes/avatar_hombre.jpg';
                 profilePic.src = picSrc;
                 profilePic.alt = nombre_completo || 'Usuario';
             }
@@ -120,7 +120,7 @@ async function cargarDatosUsuarioHeader() {
         // En caso de error, usar imagen por defecto
         const profilePic = document.getElementById('profilePic');
         if (profilePic) {
-            profilePic.src = 'img/background/default-avatar.png';
+            profilePic.src = '../backend/uploads/pacientes/avatar_hombre.jpg';
         }
     }
 }
