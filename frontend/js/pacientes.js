@@ -29,6 +29,9 @@ class PacientesManager {
                     this.mostrarExito(data.message);
                     this.loadPacientes();
                     this.updatePacientesCount();
+
+                    // Disparar evento para actualizar gráficas en tiempo real
+                    localStorage.setItem('pacientesUpdated', Date.now().toString());
                 } else {
                     this.mostrarError(data.error);
                 }
@@ -38,6 +41,7 @@ class PacientesManager {
             }
         }
     }
+
     renderPacientes() {
         const grid = document.getElementById('pacientesGrid');
         if (!this.filteredPacientes || this.filteredPacientes.length === 0) {
@@ -72,7 +76,7 @@ class PacientesManager {
             <div class="paciente-card">
                 <div class="card-header">
                     <div class="paciente-info">
-                        <img src="${paciente.foto_paciente ? `../backend/${paciente.foto_paciente}` : avatar}" 
+                        <img src="${paciente.foto_paciente ? `../backend/${paciente.foto_paciente}` : avatar}"
                             alt="${paciente.nombre}" class="paciente-foto">
                         <div class="paciente-datos">
                             <h4>${paciente.nombre} ${paciente.apellidos}</h4>
@@ -113,6 +117,7 @@ class PacientesManager {
             `;
         }).join('');
     }
+
     setPreviewAvatarByGenero(genero) {
         let avatar = '../backend/uploads/pacientes/avatar_hombre.jpg';
         if (genero === 'F') {
@@ -122,6 +127,7 @@ class PacientesManager {
         }
         document.getElementById('previewFoto').src = avatar;
     }
+
     constructor() {
         this.pacientes = [];
         this.filteredPacientes = [];
@@ -130,11 +136,13 @@ class PacientesManager {
         this.totalPages = 1;
         this.init();
     }
+
     init() {
         this.setupEventListeners();
         this.loadPacientes();
         this.updatePacientesCount();
     }
+
     setupEventListeners() {
         document.getElementById('btnNuevoPaciente').addEventListener('click', () => this.abrirModal());
         document.getElementById('closeModal').addEventListener('click', () => this.cerrarModal());
@@ -253,16 +261,16 @@ class PacientesManager {
 
     renderPagination() {
         const pagination = document.getElementById('pagination');
-        
+
         if (this.totalPages <= 1) {
             pagination.innerHTML = '';
             return;
         }
 
         let html = '';
-        
+
         // Botón anterior
-        html += `<button ${this.currentPage === 1 ? 'disabled' : ''} 
+        html += `<button ${this.currentPage === 1 ? 'disabled' : ''}
         onclick="pacientesManager.cambiarPagina(${this.currentPage - 1})">
                     <i class="fas fa-chevron-left"></i>
                 </button>`;
@@ -270,7 +278,7 @@ class PacientesManager {
         // Números de página
         for (let i = 1; i <= this.totalPages; i++) {
             if (i === 1 || i === this.totalPages || (i >= this.currentPage - 1 && i <= this.currentPage + 1)) {
-                html += `<button class="${i === this.currentPage ? 'active' : ''}" 
+                html += `<button class="${i === this.currentPage ? 'active' : ''}"
                             onclick="pacientesManager.cambiarPagina(${i})">
                             ${i}
                         </button>`;
@@ -280,7 +288,7 @@ class PacientesManager {
         }
 
         // Botón siguiente
-        html += `<button ${this.currentPage === this.totalPages ? 'disabled' : ''} 
+        html += `<button ${this.currentPage === this.totalPages ? 'disabled' : ''}
                     onclick="pacientesManager.cambiarPagina(${this.currentPage + 1})">
                     <i class="fas fa-chevron-right"></i>
                 </button>`;
@@ -325,6 +333,7 @@ class PacientesManager {
         }
         this.renderPacientes();
     }
+
     async loadPacientes(page = 1) {
         try {
             const response = await fetch(`../backend/pacientes/listar.php?page=${page}&limit=${this.itemsPerPage}`);
@@ -372,7 +381,7 @@ class PacientesManager {
         const modal = document.getElementById('modalPaciente');
         const form = document.getElementById('formPaciente');
         const title = document.getElementById('modalTitle');
-        
+
         if (pacienteId) {
             title.textContent = 'Editar Paciente';
             this.cargarDatosPaciente(pacienteId);
@@ -384,7 +393,7 @@ class PacientesManager {
             const genero = document.getElementById('genero').value || 'M';
             this.setPreviewAvatarByGenero(genero);
         }
-        
+
         modal.style.display = 'block';
     }
 
@@ -575,6 +584,9 @@ class PacientesManager {
                 this.cerrarModal();
                 this.loadPacientes();
                 this.updatePacientesCount();
+
+                // Disparar evento para actualizar gráficas en tiempo real
+                localStorage.setItem('pacientesUpdated', Date.now().toString());
             } else {
                 this.mostrarError(data.error);
             }

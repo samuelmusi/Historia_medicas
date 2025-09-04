@@ -65,13 +65,24 @@
                     </div>
                 </section>
 
-                <!-- Gráficos vacíos (se llenarán luego) -->
+                <!-- Gráficos de estadísticas mensuales -->
                 <section class="charts-grid">
-                    <div class="chart-container">
+                    <div class="chart-container large">
                         <h4>Estadísticas Mensuales</h4>
-                        <canvas id="monthlyChart"></canvas>
+                        <div class="monthly-charts">
+                            <!-- Gráfica de pacientes (funcional) -->
+                            <div class="chart-subsection">
+                                <h5><i class="fas fa-users"></i> Registros Mensuales de Pacientes</h5>
+                                <canvas id="monthlyChart"></canvas>
+                            </div>
+                            <!-- Gráfica de historias médicas (estática por ahora) -->
+                            <div class="chart-subsection">
+                                <h5><i class="fas fa-file-medical"></i> Registros Mensuales de Historias Médicas</h5>
+                                <canvas id="historiasChart"></canvas>
+                            </div>
+                        </div>
                     </div>
-                    <div class="chart-container">
+                    <div class="chart-container gender">
                         <h4>Distribución por Género</h4>
                         <canvas id="genderChart"></canvas>
                     </div>

@@ -271,3 +271,8 @@
 [2025-09-03 23:33:58] [PACIENTE_REGISTRADO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Paciente: carlo mar - DNI: 2718212
 [2025-09-04 00:22:44] [PACIENTE_REGISTRADO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Paciente: luisana castillo - DNI: 282192880
 [2025-09-04 00:49:50] [PACIENTE_REGISTRADO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Paciente: martin castro - DNI: 21212172
+[2025-09-04 12:19:07] [LOGIN_EXITOSO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Usuario: Samuel@gmail.com
+[2025-09-04 13:13:41] [LOGIN_EXITOSO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Usuario: Samuel@gmail.com
+[2025-09-04 14:09:15] [PACIENTE_REGISTRADO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Paciente: pillillo pirueta - DNI: 27384282
+[2025-09-04 16:49:06] [LOGIN_EXITOSO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Usuario: Samuel@gmail.com
+[2025-09-04 16:49:45] [PACIENTE_ELIMINADO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Paciente: pillillo pirueta - ID: 17

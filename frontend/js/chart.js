@@ -1,5 +1,5 @@
 /* ===== GRÁFICOS DINÁMICOS CON DATOS REALES ===== */
-let monthlyChart, genderChart;
+let monthlyChart, genderChart, historiasChart;
 
 document.addEventListener('DOMContentLoaded', () => {
     // Inicializar gráficas con datos vacíos
@@ -21,10 +21,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Inicializar gráficas con datos vacíos
 function initializeCharts() {
-    const zeroLabels = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'];
-    const zeroData = [0, 0, 0, 0, 0, 0];
+    // Crear etiquetas dinámicas para los últimos 6 meses
+    const zeroLabels = [];
+    const zeroData = [];
+    for (let i = 5; i >= 0; i--) {
+        const fecha = new Date();
+        fecha.setMonth(fecha.getMonth() - i);
+        const mesFormateado = fecha.toLocaleDateString('es-ES', { month: 'short', year: 'numeric' });
+        zeroLabels.push(mesFormateado);
+        zeroData.push(0);
+    }
 
-    // Gráfico de líneas mensual (estadísticas mensuales)
+    // Gráfico de líneas mensual (estadísticas mensuales de pacientes)
     const monthlyCtx = document.getElementById('monthlyChart');
     if (monthlyCtx) {
         monthlyChart = new Chart(monthlyCtx, {
@@ -86,17 +94,60 @@ function initializeCharts() {
             }
         });
     }
+
+    // Gráfico estático para historias médicas (datos ficticios)
+    const historiasCtx = document.getElementById('historiasChart');
+    if (historiasCtx) {
+        historiasChart = new Chart(historiasCtx, {
+            type: 'bar',
+            data: {
+                labels: zeroLabels,
+                datasets: [{
+                    label: 'Historias Médicas Registradas',
+                    data: [3, 5, 2, 6, 4, 7], // Datos estáticos de ejemplo
+                    backgroundColor: '#f093fb'
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false },
+                    title: {
+                        display: true,
+                        text: 'Registros Mensuales de Historias Médicas (Estático)'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1
+                        }
+                    }
+                }
+            }
+        });
+    }
 }
 
 // Cargar datos reales de las gráficas desde el backend
 async function loadChartData() {
     try {
+        console.log('Cargando datos de gráficas...');
         const response = await fetch('../backend/reportes/estadisticas.php');
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const text = await response.text();
         console.log('Respuesta cruda de la API:', text); // <-- Para depuración
+
         const data = JSON.parse(text);
 
         if (data.success && data.data) {
+            console.log('Datos cargados exitosamente:', data.data);
+
             // Actualizar gráfica de género
             updateGenderChart(data.data.distribucion_genero);
 
@@ -105,11 +156,21 @@ async function loadChartData() {
 
             // Actualizar estadísticas generales si existen
             updateGeneralStats(data.data.estadisticas_generales);
+
+            console.log('Gráficas actualizadas correctamente');
         } else {
             console.error('Error en la respuesta del servidor:', data.error);
         }
     } catch (error) {
         console.error('Error al cargar datos de gráficas:', error);
+        // Mostrar mensaje de error al usuario
+        if (typeof Swal !== 'undefined') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error al cargar gráficas',
+                text: 'No se pudieron cargar los datos de las gráficas. Verifica la conexión con el servidor.'
+            });
+        }
     }
 }
 
