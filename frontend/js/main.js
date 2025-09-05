@@ -53,6 +53,9 @@ function sidebarPostLoad() {
     // Colapsar/expandir
     toggleBtn?.addEventListener('click', () => sidebar.classList.toggle('collapsed'));
     menuBtn?.addEventListener('click',   () => sidebar.classList.toggle('collapsed'));
+
+    // Cargar datos del usuario en el sidebar
+    cargarDatosUsuarioSidebar();
 }
 
 /* ===== LÓGICA HEADER ===== */
@@ -121,6 +124,66 @@ async function cargarDatosUsuarioHeader() {
         const profilePic = document.getElementById('profilePic');
         if (profilePic) {
             profilePic.src = '../backend/uploads/pacientes/avatar_hombre.jpg';
+        }
+    }
+}
+
+/* ===== CARGAR DATOS DEL USUARIO EN SIDEBAR ===== */
+async function cargarDatosUsuarioSidebar() {
+    try {
+        const res = await fetch('../backend/auth/get_user_session.php');
+        const data = await res.json();
+
+        if (data.success) {
+            const { nombre_completo, foto_perfil, rol } = data.user;
+
+            // Actualizar foto de perfil en el sidebar
+            const sidebarProfilePic = document.getElementById('sidebarProfilePic');
+            if (sidebarProfilePic) {
+                const picSrc = foto_perfil
+                    ? `../backend/uploads/perfiles/${foto_perfil}`
+                    : '../backend/uploads/pacientes/avatar_hombre.jpg';
+                sidebarProfilePic.src = picSrc;
+                sidebarProfilePic.alt = nombre_completo || 'Usuario';
+            }
+
+            // Actualizar rol del usuario
+            const sidebarUserRole = document.getElementById('sidebarUserRole');
+            if (sidebarUserRole) {
+                // Traducir el rol a español
+                let rolTraducido = 'Usuario';
+                switch (rol) {
+                    case 'medico':
+                        rolTraducido = 'Médico';
+                        break;
+                    case 'enfermera':
+                        rolTraducido = 'Enfermera';
+                        break;
+                    case 'admin':
+                        rolTraducido = 'Administrador';
+                        break;
+                    default:
+                        rolTraducido = rol || 'Usuario';
+                }
+                sidebarUserRole.textContent = rolTraducido;
+            }
+
+        } else {
+            // Si no hay sesión, redirigir al login
+            console.warn('No hay sesión activa, redirigiendo al login...');
+            window.location.replace('login.html');
+        }
+    } catch (err) {
+        console.error('Error al cargar datos del usuario en sidebar:', err);
+        // En caso de error, usar valores por defecto
+        const sidebarProfilePic = document.getElementById('sidebarProfilePic');
+        if (sidebarProfilePic) {
+            sidebarProfilePic.src = '../backend/uploads/pacientes/avatar_hombre.jpg';
+        }
+
+        const sidebarUserRole = document.getElementById('sidebarUserRole');
+        if (sidebarUserRole) {
+            sidebarUserRole.textContent = 'Cargando...';
         }
     }
 }
