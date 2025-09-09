@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historias Médicas - Sistema de Historias Médicas</title>
+    
+    <!-- Estilos -->
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/historias.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <!-- Font Awesome -->
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body class="light">
+    <div class="layout">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar"></aside>
+
+        <!-- Contenido principal -->
+        <div class="main">
+            <!-- Header -->
+            <header id="header" class="header"></header>
+
+            <!-- Contenido historias médicas -->
+            <main class="dashboard-main">
+                <!-- Encabezado con título y botón -->
+                <section class="page-header">
+                    <div class="header-content">
+                        <div>
+                            <h2><i class="fas fa-file-medical"></i> Historias Médicas</h2>
+                            <p class="page-description">Gestión completa de historias clínicas de pacientes</p>
+                        </div>
+                        <button class="btn-primary" id="btnNuevaHistoria" style="margin-left:auto;">
+                            <i class="fas fa-plus"></i>
+                            <span>Nueva Historia Médica</span>
+                        </button>
+                    </div>
+
+                    <!-- Barra de búsqueda y filtros -->
+                    <div class="search-filter-bar">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="searchInput" placeholder="Buscar por paciente, diagnóstico, motivo...">
+                        </div>
+                        <div class="filter-options">
+                            <select id="filterMedico" style="width:100%; padding:0.75rem 1rem; border:2px solid #e5e7eb; border-radius:0.5rem; background:white; font-size:0.9rem;">
+                                <option value="">Médicos</option>
+                            </select>
+                            <select id="filterFecha" style="width:100%; padding:0.75rem 1rem; border:2px solid #e5e7eb; border-radius:0.5rem; background:white; font-size:0.9rem;">
+                                <option value="">Fechas</option>
+                                <option value="hoy">Hoy</option>
+                                <option value="semana">Esta semana</option>
+                                <option value="mes">Este mes</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Contador de historias -->
+                <div class="stats-card">
+                    <i class="fas fa-file-medical"></i>
+                    <div>
+                        <h3 id="totalHistorias">0</h3>
+                        <p>Historias Médicas</p>
+                    </div>
+                </div>
+
+                <!-- Grid de historias médicas -->
+                <section class="historias-grid" id="historiasGrid">
+                    <!-- Las historias se cargarán dinámicamente aquí -->
+                </section>
+
+                <!-- Paginación -->
+                <div class="pagination" id="pagination">
+                    <!-- Paginación dinámica -->
+                </div>
+            </main>
+
+            <!-- Footer -->
+            <footer id="footer"></footer>
+        </div>
+    </div>
+
+    <!-- Modal de selección de paciente -->
+    <div class="modal" id="modalSeleccionarPaciente">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Seleccionar Paciente</h3>
+                <button class="close-btn" id="closeModalPaciente">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchPaciente" placeholder="Buscar paciente por nombre o cédula...">
+                </div>
+                <div id="pacientesList" class="pacientes-list">
+                    <!-- Lista de pacientes se cargará aquí -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de registro/edición de historia -->
+    <div class="modal" id="modalHistoria">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3 id="modalTitle">Registrar Historia Médica</h3>
+                <button class="close-btn" id="closeModalHistoria">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="formHistoria">
+                <input type="hidden" id="historiaId" name="id">
+                <input type="hidden" id="pacienteId" name="paciente_id">
+                
+                <div class="form-container">
+                    <!-- Información del paciente -->
+                    <div class="section paciente-info">
+                        <h4><i class="fas fa-user"></i> Información del Paciente</h4>
+                        <div id="infoPaciente" class="info-paciente">
+                            <!-- Información del paciente se cargará aquí -->
+                        </div>
+                    </div>
+
+                    <!-- Datos de la consulta -->
+                    <div class="section">
+                        <h4><i class="fas fa-notes-medical"></i> Datos de la Consulta</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="motivo_consulta">Motivo de Consulta *</label>
+                                <textarea id="motivo_consulta" name="motivo_consulta" rows="3" required placeholder="Describa el motivo principal de la consulta..."></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="antecedentes">Antecedentes Médicos</label>
+                                <textarea id="antecedentes" name="antecedentes" rows="3" placeholder="Antecedentes personales, familiares, quirúrgicos..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Evaluación clínica -->
+                    <div class="section">
+                        <h4><i class="fas fa-stethoscope"></i> Evaluación Clínica</h4>
+                        <div class="form-row">
+                            <div class="form-group col-6">
+                                <label for="grupo_sanguineo">Grupo Sanguíneo</label>
+                                <select id="grupo_sanguineo" name="grupo_sanguineo">
+                                    <option value="">Seleccione</option>
+                                    <option value="A+">A+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B+">B+</option>
+                                    <option value="B-">B-</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="AB-">AB-</option>
+                                    <option value="O+">O+</option>
+                                    <option value="O-">O-</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="examen_fisico">Examen Físico</label>
+                                <textarea id="examen_fisico" name="examen_fisico" rows="4" placeholder="Hallazgos del examen físico general y por sistemas..."></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="examenes_complementarios">Exámenes Complementarios</label>
+                                <textarea id="examenes_complementarios" name="examenes_complementarios" rows="3" placeholder="Resultados de laboratorio, imágenes, electrocardiograma..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Diagnóstico y tratamiento -->
+                    <div class="section">
+                        <h4><i class="fas fa-diagnoses"></i> Diagnóstico y Tratamiento</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="diagnostico">Diagnóstico *</label>
+                                <textarea id="diagnostico" name="diagnostico" rows="3" required placeholder="Diagnóstico principal y diferenciales..."></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="tratamiento">Plan de Tratamiento *</label>
+                                <textarea id="tratamiento" name="tratamiento" rows="4" required placeholder="Medicamentos, procedimientos, indicaciones, control..."></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="observaciones">Observaciones y Recomendaciones</label>
+                                <textarea id="observaciones" name="observaciones" rows="3" placeholder="Observaciones adicionales, recomendaciones, plan de seguimiento..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" id="btnCancelar">Cancelar</button>
+                    <button type="submit" class="btn-primary" id="btnGuardar">
+                        <i class="fas fa-save"></i>
+                        <span>Guardar Historia</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/main.js"></script>
+    <script src="js/historias.js"></script>
+</body>
+</html>

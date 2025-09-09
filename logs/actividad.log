@@ -290,3 +290,12 @@
 [2025-09-04 22:21:04] [LOGIN_EXITOSO] [IP: ::1] [Usuario: 4] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Usuario: Juena@gmail.com
 [2025-09-04 22:31:39] [LOGIN_EXITOSO] [IP: ::1] [Usuario: 2] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Usuario: Samuel@gmail.com
 [2025-09-04 22:33:47] [LOGIN_EXITOSO] [IP: ::1] [Usuario: 1] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36] Usuario: samu@gmail.com
+[2025-09-08 11:12:24] [LOGIN_EXITOSO] [IP: ::1] [Usuario: 1] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36] Usuario: samu@gmail.com
+[2025-09-08 19:40:44] [LOGIN_EXITOSO] [IP: ::1] [Usuario: 1] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36] Usuario: samu@gmail.com
+[2025-09-08 21:25:03] [LOGIN_EXITOSO] [IP: ::1] [Usuario: 1] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36] Usuario: samu@gmail.com
+[2025-09-08 21:32:57] [LOGIN_EXITOSO] [IP: ::1] [Usuario: 1] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36] Usuario: samu@gmail.com
+[2025-09-08 22:27:16] [LOGIN_EXITOSO] [IP: ::1] [Usuario: 1] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36] Usuario: samu@gmail.com
+[2025-09-08 23:06:20] [HISTORIA_MEDICA_CREADA] [IP: ::1] [Usuario: 1] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36] Historia médica creada para: luisana castillo - ID: 5
+[2025-09-08 23:07:37] [HISTORIA_MEDICA_ACTUALIZADA] [IP: ::1] [Usuario: 1] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36] Historia médica actualizada - ID: 1
+[2025-09-08 23:08:00] [HISTORIA_MEDICA_ACTUALIZADA] [IP: ::1] [Usuario: 1] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36] Historia médica actualizada - ID: 1
+[2025-09-08 23:17:12] [HISTORIA_MEDICA_CREADA] [IP: ::1] [Usuario: 1] [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36] Historia médica creada para: martin castro - ID: 16

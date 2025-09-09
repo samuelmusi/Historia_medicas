@@ -69,3 +69,23 @@ async function actualizarContadorPacientes() {
 
 // Llamar a la función después de cargar datos del usuario
 actualizarContadorPacientes();
+
+
+// Agregar en frontend/js/dashboard.js
+async function actualizarContadorHistorias() {
+    try {
+        const response = await fetch('../backend/historias/listar.php?limit=1');
+        const data = await response.json();
+        if (data.success) {
+            const dashboardCount = document.getElementById('totalHistoriasDashboard');
+            if (dashboardCount) {
+                dashboardCount.textContent = data.pagination.total;
+            }
+        }
+    } catch (error) {
+        console.error('Error al actualizar contador de historias:', error);
+    }
+}
+
+// Llamar a la función después de cargar datos del usuario
+actualizarContadorHistorias();
