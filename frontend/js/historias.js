@@ -175,21 +175,16 @@ class HistoriasManager {
         }
 
         grid.innerHTML = this.filteredHistorias.map(historia => {
-            // Determinar avatar según género
+            // Determinar avatar según género o foto personalizada
             let avatar = '../backend/uploads/pacientes/avatar_hombre.jpg';
             if (historia.paciente_genero === 'F') {
                 avatar = '../backend/uploads/pacientes/avatar_mujer.jpg';
             } else if (historia.paciente_genero === 'Otro') {
                 avatar = '../backend/uploads/pacientes/avatar_otro.png';
             }
-
-            // Formatear fecha
-            const fecha = new Date(historia.fecha_creacion);
-            const fechaFormateada = fecha.toLocaleDateString('es-ES', {
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric'
-            });
+            if (historia.foto_paciente) {
+                avatar = `../backend/${historia.foto_paciente}`;
+            }
 
             return `
                 <div class="historia-card">
@@ -395,22 +390,36 @@ class HistoriasManager {
     }
 
     abrirModalSeleccionarPaciente() {
-        const modal = document.getElementById('modalSeleccionarPaciente');
-        modal.style.display = 'flex';
-        this.renderPacientes(this.pacientes);
+    const modal = document.getElementById('modalSeleccionarPaciente');
+    modal.classList.add('show');
+    this.renderPacientes(this.pacientes);
     }
 
     cerrarModalSeleccionarPaciente() {
-        document.getElementById('modalSeleccionarPaciente').style.display = 'none';
+    document.getElementById('modalSeleccionarPaciente').classList.remove('show');
     }
 
-    seleccionarPaciente(pacienteId) {
+    async seleccionarPaciente(pacienteId) {
         const paciente = this.pacientes.find(p => p.id === pacienteId);
-        if (paciente) {
-            this.selectedPaciente = paciente;
+        if (!paciente) return;
+
+        // Validar si el paciente ya tiene historia médica usando las historias ya cargadas
+        const yaTieneHistoria = this.historias.some(h => h.paciente_id == pacienteId);
+        if (yaTieneHistoria) {
             this.cerrarModalSeleccionarPaciente();
-            this.abrirModalHistoria();
+            setTimeout(() => {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Paciente ya tiene historia médica',
+                    html: `Este paciente ya tiene una historia médica registrada.<br><span style='color:#888;font-size:0.95em'>Verifique en la página de gestión de historias médicas.</span>`,
+                    confirmButtonText: 'Cerrar',
+                });
+            }, 200);
+            return;
         }
+        this.selectedPaciente = paciente;
+        this.cerrarModalSeleccionarPaciente();
+        this.abrirModalHistoria();
     }
 
     abrirModalHistoria(historiaId = null) {
@@ -425,18 +434,18 @@ class HistoriasManager {
             title.textContent = 'Registrar Nueva Historia Médica';
             form.reset();
             document.getElementById('historiaId').value = '';
-            
             if (this.selectedPaciente) {
                 this.mostrarInfoPaciente(this.selectedPaciente);
             }
         }
-
-        modal.style.display = 'flex';
+        // Mostrar modal con animación profesional
+        modal.classList.add('show');
     }
 
     cerrarModalHistoria() {
-        document.getElementById('modalHistoria').style.display = 'none';
-        this.selectedPaciente = null;
+    const modal = document.getElementById('modalHistoria');
+    modal.classList.remove('show');
+    this.selectedPaciente = null;
     }
 
     mostrarInfoPaciente(paciente) {
@@ -539,11 +548,20 @@ class HistoriasManager {
                 this.mostrarExito(data.message);
                 this.cerrarModalHistoria();
                 this.loadHistorias();
-                
                 // Disparar evento para actualizar estadísticas
                 localStorage.setItem('historiasUpdated', Date.now().toString());
             } else {
-                this.mostrarError(data.error);
+                // Si el error es por historia duplicada, mostrar alerta especial
+                if (data.error && data.error.includes('ya tiene una historia médica')) {
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Paciente ya tiene historia médica',
+                        html: `${data.error}<br><span style='color:#888;font-size:0.95em'>Verifique en la página de gestión de historias médicas.</span>`,
+                        confirmButtonText: 'Cerrar',
+                    });
+                } else {
+                    this.mostrarError(data.error);
+                }
             }
         } catch (error) {
             console.error('Error al guardar historia:', error);

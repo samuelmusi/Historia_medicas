@@ -95,7 +95,7 @@ function initializeCharts() {
         });
     }
 
-    // Gráfico estático para historias médicas (datos ficticios)
+    // Gráfico de barras para historias médicas (se actualizará con datos reales)
     const historiasCtx = document.getElementById('historiasChart');
     if (historiasCtx) {
         historiasChart = new Chart(historiasCtx, {
@@ -104,7 +104,7 @@ function initializeCharts() {
                 labels: zeroLabels,
                 datasets: [{
                     label: 'Historias Médicas Registradas',
-                    data: [3, 5, 2, 6, 4, 7], // Datos estáticos de ejemplo
+                    data: zeroData,
                     backgroundColor: '#f093fb'
                 }]
             },
@@ -114,7 +114,7 @@ function initializeCharts() {
                     legend: { display: false },
                     title: {
                         display: true,
-                        text: 'Registros Mensuales de Historias Médicas (Estático)'
+                        text: 'Registros Mensuales de Historias Médicas'
                     }
                 },
                 scales: {
@@ -147,17 +147,23 @@ async function loadChartData() {
 
         if (data.success && data.data) {
             console.log('Datos cargados exitosamente:', data.data);
-
             // Actualizar gráfica de género
             updateGenderChart(data.data.distribucion_genero);
-
-            // Actualizar gráfica mensual
+            // Actualizar gráfica mensual de pacientes
             updateMonthlyChart(data.data.estadisticas_mensuales);
-
+            // Actualizar gráfica mensual de historias médicas
+            updateHistoriasChart(data.data.estadisticas_mensuales_historias);
             // Actualizar estadísticas generales si existen
             updateGeneralStats(data.data.estadisticas_generales);
-
             console.log('Gráficas actualizadas correctamente');
+// Actualizar gráfica mensual de historias médicas con datos reales del backend
+function updateHistoriasChart(mensualData) {
+    if (historiasChart && mensualData) {
+        historiasChart.data.labels = mensualData.labels;
+        historiasChart.data.datasets[0].data = mensualData.data;
+        historiasChart.update();
+    }
+}
         } else {
             console.error('Error en la respuesta del servidor:', data.error);
         }

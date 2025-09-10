@@ -71,13 +71,16 @@ async function actualizarContadorPacientes() {
 actualizarContadorPacientes();
 
 
-// Agregar en frontend/js/dashboard.js
+// === CONTADOR DE HISTORIAS MÉDICAS EN TIEMPO REAL ===
+// Esta función actualiza el contador de historias médicas en la tarjeta del dashboard
 async function actualizarContadorHistorias() {
     try {
+        // Consultar solo el total de historias médicas
         const response = await fetch('../backend/historias/listar.php?limit=1');
         const data = await response.json();
         if (data.success) {
-            const dashboardCount = document.getElementById('totalHistoriasDashboard');
+            // Buscar el elemento por id (debe coincidir con dashboard.html)
+            const dashboardCount = document.getElementById('totalHistorias');
             if (dashboardCount) {
                 dashboardCount.textContent = data.pagination.total;
             }
@@ -87,5 +90,13 @@ async function actualizarContadorHistorias() {
     }
 }
 
-// Llamar a la función después de cargar datos del usuario
+// Llamar al cargar usuario y cada 30s para tiempo real
 actualizarContadorHistorias();
+setInterval(actualizarContadorHistorias, 30000);
+
+// Escuchar cambios en localStorage para actualizar en tiempo real desde otros módulos
+window.addEventListener('storage', (e) => {
+    if (e.key === 'historiasUpdated') {
+        actualizarContadorHistorias();
+    }
+});

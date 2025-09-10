@@ -32,6 +32,13 @@ try {
     $examen_fisico = Seguridad::validarInput($_POST['examen_fisico'] ?? '');
     $examenes_complementarios = Seguridad::validarInput($_POST['examenes_complementarios'] ?? '');
 
+    // Validar que el paciente no tenga ya una historia médica
+    $stmt = $pdo->prepare("SELECT id FROM historias_clinicas WHERE paciente_id = ? LIMIT 1");
+    $stmt->execute([$paciente_id]);
+    if ($stmt->fetch()) {
+        throw new Exception('Este paciente ya tiene una historia médica registrada.');
+    }
+
     // Validaciones obligatorias
     if (empty($paciente_id) || empty($motivo_consulta)) {
         throw new Exception('El paciente y el motivo de consulta son obligatorios');

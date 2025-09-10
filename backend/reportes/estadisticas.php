@@ -63,8 +63,9 @@ try {
         $generoMap['Otro']
     ];
 
-    // Obtener estadísticas mensuales (últimos 6 meses) - Versión simplificada
-    $stmtMensual = $pdo->prepare("
+
+    // === PACIENTES: Estadísticas mensuales (como antes, para la gráfica de pacientes) ===
+    $stmtMensualPacientes = $pdo->prepare("
         SELECT
             DATE_FORMAT(fecha_registro, '%Y-%m') as mes,
             DATE_FORMAT(fecha_registro, '%b %Y') as mes_formateado,
@@ -75,28 +76,19 @@ try {
         GROUP BY DATE_FORMAT(fecha_registro, '%Y-%m'), DATE_FORMAT(fecha_registro, '%b %Y')
         ORDER BY mes ASC
     ");
-    $stmtMensual->execute();
-    $estadisticasMensuales = $stmtMensual->fetchAll(PDO::FETCH_ASSOC);
+    $stmtMensualPacientes->execute();
+    $estadisticasMensuales = $stmtMensualPacientes->fetchAll(PDO::FETCH_ASSOC);
 
-    // Debug: Verificar qué datos se están obteniendo
-    error_log("Estadísticas mensuales obtenidas: " . json_encode($estadisticasMensuales));
-    error_log("Fecha actual: " . date('Y-m-d H:i:s'));
-    error_log("Hace 6 meses: " . date('Y-m-d H:i:s', strtotime('-6 months')));
-
-    // Formatear datos mensuales para la gráfica - Versión simplificada
+    // Formatear datos mensuales para la gráfica de pacientes
     $mensualLabels = [];
     $mensualData = [];
-
-    // Crear array con los últimos 6 meses (formato simplificado)
     for ($i = 5; $i >= 0; $i--) {
         $fecha = new DateTime();
         $fecha->modify("-$i months");
-        $mesFormateado = $fecha->format('M Y'); // Formato: "Sep 2024"
+        $mesFormateado = $fecha->format('M Y');
         $mensualLabels[] = $mesFormateado;
-        $mensualData[] = 0; // Valor por defecto
+        $mensualData[] = 0;
     }
-
-    // Llenar con datos reales
     foreach ($estadisticasMensuales as $row) {
         $index = array_search($row['mes_formateado'], $mensualLabels);
         if ($index !== false) {
@@ -104,9 +96,37 @@ try {
         }
     }
 
-    // Debug adicional
-    error_log("Labels generados: " . json_encode($mensualLabels));
-    error_log("Datos finales: " . json_encode($mensualData));
+    // === HISTORIAS MÉDICAS: Estadísticas mensuales reales ===
+    $stmtMensualHistorias = $pdo->prepare("
+        SELECT
+            DATE_FORMAT(fecha_creacion, '%Y-%m') as mes,
+            DATE_FORMAT(fecha_creacion, '%b %Y') as mes_formateado,
+            COUNT(*) as cantidad
+        FROM historias_clinicas
+        WHERE 1
+        AND fecha_creacion >= DATE_SUB(NOW(), INTERVAL 6 MONTH)
+        GROUP BY DATE_FORMAT(fecha_creacion, '%Y-%m'), DATE_FORMAT(fecha_creacion, '%b %Y')
+        ORDER BY mes ASC
+    ");
+    $stmtMensualHistorias->execute();
+    $estadisticasMensualesHistorias = $stmtMensualHistorias->fetchAll(PDO::FETCH_ASSOC);
+
+    // Formatear datos mensuales para la gráfica de historias médicas
+    $mensualLabelsHistorias = [];
+    $mensualDataHistorias = [];
+    for ($i = 5; $i >= 0; $i--) {
+        $fecha = new DateTime();
+        $fecha->modify("-$i months");
+        $mesFormateado = $fecha->format('M Y');
+        $mensualLabelsHistorias[] = $mesFormateado;
+        $mensualDataHistorias[] = 0;
+    }
+    foreach ($estadisticasMensualesHistorias as $row) {
+        $index = array_search($row['mes_formateado'], $mensualLabelsHistorias);
+        if ($index !== false) {
+            $mensualDataHistorias[$index] = (int)$row['cantidad'];
+        }
+    }
 
     // Obtener estadísticas generales
     $stmtGenerales = $pdo->prepare("
@@ -126,15 +146,23 @@ try {
     echo json_encode([
         'success' => true,
         'data' => [
+            // Gráfica de género (torta)
             'distribucion_genero' => [
                 'labels' => $generoLabels,
                 'data' => $generoData,
                 'total' => $totalPacientes
             ],
+            // Gráfica mensual de pacientes
             'estadisticas_mensuales' => [
                 'labels' => $mensualLabels,
                 'data' => $mensualData
             ],
+            // Gráfica mensual de historias médicas
+            'estadisticas_mensuales_historias' => [
+                'labels' => $mensualLabelsHistorias,
+                'data' => $mensualDataHistorias
+            ],
+            // Estadísticas generales
             'estadisticas_generales' => [
                 'total_pacientes' => (int)$estadisticasGenerales['total_pacientes'],
                 'total_masculino' => (int)$estadisticasGenerales['total_masculino'],

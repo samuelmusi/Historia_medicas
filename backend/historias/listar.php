@@ -37,6 +37,7 @@ try {
                   p.apellidos as paciente_apellidos,
                   p.dni as paciente_dni,
                   p.genero as paciente_genero,
+                  p.foto_paciente,
                   CONCAT(p.nombre, ' ', p.apellidos) as paciente_completo,
                   u.nombre_completo as medico_nombre,
                   u.rol as medico_rol,
